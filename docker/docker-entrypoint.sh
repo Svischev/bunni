@@ -14,17 +14,17 @@ echo "[Configuration] Waiting $delay seconds for RabbitMQ to start."
 sleep $delay
 
 echo '*** Creating users ***'
-$ctl add_user bunny_gem bunny_password
-$ctl add_user bunny_reader reader_password
+$ctl add_user bunni_gem bunni_password
+$ctl add_user bunni_reader reader_password
 
 echo '*** Creating virtual hosts ***'
-$ctl add_vhost bunny_testbed
+$ctl add_vhost bunni_testbed
 
 echo '*** Setting virtual host permissions ***'
 $ctl set_permissions -p / guest '.*' '.*' '.*'
-$ctl set_permissions -p bunny_testbed bunny_gem '.*' '.*' '.*'
-$ctl set_permissions -p bunny_testbed guest '.*' '.*' '.*'
-$ctl set_permissions -p bunny_testbed bunny_reader '^---$' '^---$' '.*'
+$ctl set_permissions -p bunni_testbed bunni_gem '.*' '.*' '.*'
+$ctl set_permissions -p bunni_testbed guest '.*' '.*' '.*'
+$ctl set_permissions -p bunni_testbed bunni_reader '^---$' '^---$' '.*'
 
 $ctl stop
 

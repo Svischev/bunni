@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Bunny::Channel do
+describe Bunni::Channel do
   after :each do
     connection.close if connection.open?
   end
@@ -54,7 +54,7 @@ describe Bunny::Channel do
           sleep 0.25
 
           expect {
-            Bunny::Timeout.timeout(2) do
+            Bunni::Timeout.timeout(2) do
               expect(ch.wait_for_confirms).to eq true
             end
           }.not_to raise_error
@@ -70,7 +70,7 @@ describe Bunny::Channel do
 
           expect {
             ch.wait_for_confirms
-          }.to raise_error(Bunny::ChannelAlreadyClosed)
+          }.to raise_error(Bunni::ChannelAlreadyClosed)
         end
       end
 
@@ -118,7 +118,7 @@ describe Bunny::Channel do
 
   context "with a multi-threaded connection" do
     let(:connection) do
-      c = Bunny.new(username: "bunny_gem", password: "bunny_password", vhost: "bunny_testbed", continuation_timeout: 10000)
+      c = Bunni.new(username: "bunni_gem", password: "bunni_password", vhost: "bunni_testbed", continuation_timeout: 10000)
       c.start
       c
     end
@@ -181,7 +181,7 @@ describe Bunny::Channel do
 
   context "with a single-threaded connection" do
     let(:connection) do
-      c = Bunny.new(username: "bunny_gem", password: "bunny_password", vhost: "bunny_testbed", continuation_timeout: 10000, threaded: false)
+      c = Bunni.new(username: "bunni_gem", password: "bunni_password", vhost: "bunni_testbed", continuation_timeout: 10000, threaded: false)
       c.start
       c
     end

@@ -4,8 +4,8 @@ require "spec_helper"
 unless ENV["CI"]
   describe "Concurrent publishers sharing a connection" do
     before :all do
-      @connection = Bunny.new(username: "bunny_gem", password: "bunny_password",
-        vhost: "bunny_testbed", automatically_recover: false)
+      @connection = Bunni.new(username: "bunni_gem", password: "bunni_password",
+        vhost: "bunni_testbed", automatically_recover: false)
       @connection.start
     end
 

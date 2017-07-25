@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe Bunny::Channel, "#prefetch" do
+describe Bunni::Channel, "#prefetch" do
   let(:connection) do
-    c = Bunny.new(username: "bunny_gem", password: "bunny_password", vhost: "bunny_testbed")
+    c = Bunni.new(username: "bunni_gem", password: "bunni_password", vhost: "bunni_testbed")
     c.start
     c
   end
@@ -38,7 +38,7 @@ describe Bunny::Channel, "#prefetch" do
         ch.prefetch(100_000)
       }.to raise_error(
         ArgumentError,
-        "prefetch count must be no greater than #{Bunny::Channel::MAX_PREFETCH_COUNT}, given: 100000"
+        "prefetch count must be no greater than #{Bunni::Channel::MAX_PREFETCH_COUNT}, given: 100000"
       )
     end
   end

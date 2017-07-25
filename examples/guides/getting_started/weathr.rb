@@ -2,11 +2,11 @@
 # encoding: utf-8
 
 require "rubygems"
-require "bunny"
+require "bunni"
 
 STDOUT.sync = true
 
-connection = Bunny.new
+connection = Bunni.new
 connection.start
 
 channel  = connection.create_channel

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Bunny::Session do
+describe Bunni::Session do
   let(:connection) do
-    c = Bunny.new(
-        user: 'bunny_gem', password: 'bunny_password',
-        vhost: 'bunny_testbed',
+    c = Bunni.new(
+        user: 'bunni_gem', password: 'bunni_password',
+        vhost: 'bunni_testbed',
         port: ENV.fetch('RABBITMQ_PORT', 5672)
     )
     c.start
@@ -25,7 +25,7 @@ describe Bunny::Session do
       it 'should raise an exception' do
         expect {
           connection.create_channel
-        }.to raise_error(Bunny::ConnectionAlreadyClosed)
+        }.to raise_error(Bunni::ConnectionAlreadyClosed)
       end
     end
   end

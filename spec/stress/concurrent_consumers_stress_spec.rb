@@ -4,7 +4,7 @@ require "spec_helper"
 unless ENV["CI"]
   describe "Concurrent consumers sharing a connection" do
     before :all do
-      @connection = Bunny.new(username: "bunny_gem", password: "bunny_password", vhost: "bunny_testbed",
+      @connection = Bunni.new(username: "bunni_gem", password: "bunni_password", vhost: "bunni_testbed",
                     automatic_recovery: false, continuation_timeout: 45000)
       @connection.start
     end
@@ -27,7 +27,7 @@ unless ENV["CI"]
         ch0  = @connection.create_channel
         ch0.confirm_select
         body = "абвг"
-        x    = ch0.topic("bunny.stress.concurrent.consumers.topic", durable: true)
+        x    = ch0.topic("bunni.stress.concurrent.consumers.topic", durable: true)
 
         chs  = {}
         n.times do |i|

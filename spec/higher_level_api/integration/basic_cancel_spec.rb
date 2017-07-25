@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe Bunny::Consumer, "#cancel" do
+describe Bunni::Consumer, "#cancel" do
   let(:connection) do
-    c = Bunny.new(username: "bunny_gem", password: "bunny_password", vhost: "bunny_testbed")
+    c = Bunni.new(username: "bunni_gem", password: "bunni_password", vhost: "bunni_testbed")
     c.start
     c
   end
@@ -12,7 +12,7 @@ describe Bunny::Consumer, "#cancel" do
   end
 
   context "with a non-blocking consumer" do
-    let(:queue_name) { "bunny.queues.#{rand}" }
+    let(:queue_name) { "bunni.queues.#{rand}" }
 
     it "cancels the consumer" do
       delivered_data = []
@@ -43,7 +43,7 @@ describe Bunny::Consumer, "#cancel" do
 
 
   context "with a blocking consumer" do
-    let(:queue_name) { "bunny.queues.#{rand}" }
+    let(:queue_name) { "bunni.queues.#{rand}" }
 
     it "cancels the consumer" do
       delivered_data = []
@@ -53,7 +53,7 @@ describe Bunny::Consumer, "#cancel" do
         ch         = connection.create_channel
         q          = ch.queue(queue_name, auto_delete: true, durable: false)
 
-        consumer   = Bunny::Consumer.new(ch, q)
+        consumer   = Bunni::Consumer.new(ch, q)
         consumer.on_delivery do |_, _, payload|
           delivered_data << payload
         end
@@ -75,7 +75,7 @@ describe Bunny::Consumer, "#cancel" do
   end
 
   context "with a worker pool shutdown timeout configured" do
-    let(:queue_name) { "bunny.queues.#{rand}" }
+    let(:queue_name) { "bunni.queues.#{rand}" }
 
     it "processes the message if processing completes within the timeout" do
       delivered_data = []
@@ -85,7 +85,7 @@ describe Bunny::Consumer, "#cancel" do
         ch         = connection.create_channel(nil, 1, false, 5)
         q          = ch.queue(queue_name, auto_delete: true, durable: false)
 
-        consumer   = Bunny::Consumer.new(ch, q)
+        consumer   = Bunni::Consumer.new(ch, q)
         consumer.on_delivery do |_, _, payload|
           sleep 2
           delivered_data << payload
@@ -116,7 +116,7 @@ describe Bunny::Consumer, "#cancel" do
         ch         = connection.create_channel(nil, 1, false, 1)
         q          = ch.queue(queue_name, auto_delete: true, durable: false)
 
-        consumer   = Bunny::Consumer.new(ch, q)
+        consumer   = Bunni::Consumer.new(ch, q)
         consumer.on_delivery do |_, _, payload|
           sleep 3
           delivered_data << payload

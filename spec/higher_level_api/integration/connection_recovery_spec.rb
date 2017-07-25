@@ -3,7 +3,7 @@ require "rabbitmq/http/client"
 
 describe "Connection recovery" do
   let(:http_client) { RabbitMQ::HTTP::Client.new("http://127.0.0.1:15672") }
-  let(:logger) { Logger.new($stderr).tap {|logger| logger.level = ENV["BUNNY_LOG_LEVEL"] || Logger::WARN } }
+  let(:logger) { Logger.new($stderr).tap {|logger| logger.level = ENV["bunni_LOG_LEVEL"] || Logger::WARN } }
   let(:recovery_interval) { 0.2 }
 
   it "reconnects after grace period" do
@@ -129,7 +129,7 @@ describe "Connection recovery" do
   it "recovers client-named queues" do
     with_open do |c|
       ch = c.create_channel
-      q  = ch.queue("bunny.tests.recovery.client-named#{rand}")
+      q  = ch.queue("bunni.tests.recovery.client-named#{rand}")
       close_all_connections!
       wait_for_recovery_with { connections.any? }
       expect(ch).to be_open
@@ -145,7 +145,7 @@ describe "Connection recovery" do
       ch2 = c.create_channel
 
       n   = rand
-      s   = "bunny.tests.recovery.client-named#{n}"
+      s   = "bunni.tests.recovery.client-named#{n}"
 
       q   = ch.queue(s)
       q2  = ch2.queue(s, no_declare: true)
@@ -165,7 +165,7 @@ describe "Connection recovery" do
       ch2 = c.create_channel
 
       n   = rand
-      s   = "bunny.tests.recovery.client-named#{n}"
+      s   = "bunni.tests.recovery.client-named#{n}"
 
       q   = ch.queue(s)
       q2  = ch2.queue(s, passive: true)
@@ -404,7 +404,7 @@ describe "Connection recovery" do
 
   def close_ignoring_permitted_exceptions(connection_name)
     http_client.close_connection(connection_name)
-  rescue Bunny::ConnectionForced, Faraday::ResourceNotFound
+  rescue Bunni::ConnectionForced, Faraday::ResourceNotFound
     # ignored
   end
 
@@ -424,7 +424,7 @@ describe "Connection recovery" do
     }
   end
 
-  def with_open(c = Bunny.new(network_recovery_interval: recovery_interval,
+  def with_open(c = Bunni.new(network_recovery_interval: recovery_interval,
                               recover_from_connection_close: true,
                               logger: logger), &block)
     c.start
@@ -434,7 +434,7 @@ describe "Connection recovery" do
   end
 
   def with_open_multi_host(&block)
-    c = Bunny.new(hosts: ["127.0.0.1", "localhost"],
+    c = Bunni.new(hosts: ["127.0.0.1", "localhost"],
                   network_recovery_interval: recovery_interval,
                   recover_from_connection_close: true,
                   logger: logger)
@@ -442,7 +442,7 @@ describe "Connection recovery" do
   end
 
   def with_open_multi_broken_host(&block)
-    c = Bunny.new(hosts: ["broken", "127.0.0.1", "localhost"],
+    c = Bunni.new(hosts: ["broken", "127.0.0.1", "localhost"],
                   hosts_shuffle_strategy: Proc.new { |hosts| hosts }, # We do not shuffle for these tests so we always hit the broken host
                   network_recovery_interval: recovery_interval,
                   recover_from_connection_close: true,

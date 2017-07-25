@@ -12,7 +12,7 @@ as long as it has a suitable TLS keys configuration and management plugin enable
 Make sure you have a recent version of RabbitMQ (> `3.5.3`).
 
 You can also start a clean RabbitMQ server
-node on your machine specifically for the bunny specs.
+node on your machine specifically for the bunni specs.
 This can be done either by using a locally installed RabbitMQ server or by
 running a RabbitMQ server in a Docker container.
 
@@ -21,13 +21,13 @@ running a RabbitMQ server in a Docker container.
 Run the following command from the base directory of the gem:
 
 ```
-RABBITMQ_NODENAME=bunny RABBITMQ_CONFIG_FILE=./spec/config/rabbitmq RABBITMQ_ENABLED_PLUGINS_FILE=./spec/config/enabled_plugins rabbitmq-server
+RABBITMQ_NODENAME=bunni RABBITMQ_CONFIG_FILE=./spec/config/rabbitmq RABBITMQ_ENABLED_PLUGINS_FILE=./spec/config/enabled_plugins rabbitmq-server
 ```
 
 The specs use the RabbitMQ management plugin and require a TLS port to
 be available. The config files in the spec/config directory enable
 these. TLS (x509 PEM) certificates include a hostname-specific fields,
-the tests allow for expecting hostname overriding using the `BUNNY_RABBITMQ_HOSTNAME`
+the tests allow for expecting hostname overriding using the `bunni_RABBITMQ_HOSTNAME`
 environment variables (default value is `127.0.0.1`).
 
 Server, CA and client certificates can be found under `spec/tls`. They are supposed to be
@@ -36,11 +36,11 @@ generated with [tls-gen](github.com/michaelklishin/tls-gen) or similar in the ta
 Next up you'll need to prepare your node for the specs (just once):
 
 ```
-RABBITMQ_NODENAME=bunny ./bin/ci/before_build
+RABBITMQ_NODENAME=bunni ./bin/ci/before_build
 ```
 
 The script uses `rabbitmqctl` and `rabbitmq-plugins`
-to set up RabbitMQ in a way that Bunny test suites expect. Two environment variables,
+to set up RabbitMQ in a way that bunni test suites expect. Two environment variables,
 `RABBITMQCTL` and `RABBITMQ_PLUGINS`, are available to control what `rabbitmqctl` and
 `rabbitmq-plugins` commands will be used. By default they are taken from `PATH`
 and prefixed with `sudo`.
@@ -48,7 +48,7 @@ and prefixed with `sudo`.
 And then run the core integration suite:
 
 ```
-RABBITMQ_NODENAME=bunny CI=true rspec
+RABBITMQ_NODENAME=bunni CI=true rspec
 ```
 
 #### Running a RabbitMQ server in a Docker container
@@ -70,8 +70,8 @@ it by pressing CTRL+C. If you want to run it in the background, run `docker-comp
 
 ### Running Test Suites
 
-Prior to running the tests, configure the RabbitMQ permissions by running `./bin/ci/before_build` 
-if you have RabbitMQ locally installed, if you are running RabbitMQ via Docker as above this step 
+Prior to running the tests, configure the RabbitMQ permissions by running `./bin/ci/before_build`
+if you have RabbitMQ locally installed, if you are running RabbitMQ via Docker as above this step
 is not required as the setup is baked in.
 
 Make sure you have those two installed and then run integration tests:

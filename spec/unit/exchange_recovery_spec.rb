@@ -1,11 +1,11 @@
-require_relative '../../lib/bunny/channel'
-require_relative '../../lib/bunny/exchange'
+require_relative '../../lib/bunni/channel'
+require_relative '../../lib/bunni/exchange'
 
-module Bunny
+module Bunni
   describe Exchange do
     context "recovery" do
       it "recovers exchange bindings, unless already unbound" do
-        ch = instance_double(Bunny::Channel,
+        ch = instance_double(Bunni::Channel,
                              exchange_declare: nil,
                              register_exchange: nil)
         src1 = Exchange.new(ch, "direct", "src1")

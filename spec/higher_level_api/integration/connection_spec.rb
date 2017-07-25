@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Bunny::Session do
+describe Bunni::Session do
   let(:port)     { AMQ::Protocol::DEFAULT_PORT }
   let(:username) { "guest" }
 
@@ -50,7 +50,7 @@ describe Bunny::Session do
 
   context "initialized with all defaults" do
     it "provides a way to fine tune socket options" do
-      conn = Bunny.new
+      conn = Bunni.new
       conn.start
       expect(conn.transport.socket).to respond_to(:setsockopt)
 
@@ -58,7 +58,7 @@ describe Bunny::Session do
     end
 
     it "successfully negotiates the connection" do
-      conn = Bunny.new
+      conn = Bunni.new
       conn.start
       expect(conn).to be_connected
 
@@ -315,9 +315,9 @@ describe Bunny::Session do
 
     context "initialized with ssl: true" do
       let(:subject) do
-        described_class.new(username: "bunny_gem",
-          password: "bunny_password",
-          vhost: "bunny_testbed",
+        described_class.new(username: "bunni_gem",
+          password: "bunni_password",
+          vhost: "bunni_testbed",
           ssl:                 true,
           ssl_cert:            "spec/tls/client_cert.pem",
           ssl_key:             "spec/tls/client_key.pem",
@@ -331,9 +331,9 @@ describe Bunny::Session do
 
     context "initialized with tls: true" do
       let(:subject) do
-        described_class.new(username: "bunny_gem",
-          password: "bunny_password",
-          vhost: "bunny_testbed",
+        described_class.new(username: "bunni_gem",
+          password: "bunni_password",
+          vhost: "bunni_testbed",
           tls: true,
           tls_cert: "spec/tls/client_certificate.pem",
           tls_key: "spec/tls/client_key.pem",
@@ -353,9 +353,9 @@ describe Bunny::Session do
 
     let(:host)     { "127.0.0.1" }
     # see ./bin/ci/before_build
-    let(:username) { "bunny_gem" }
-    let(:password) { "bunny_password" }
-    let(:vhost)    { "bunny_testbed" }
+    let(:username) { "bunni_gem" }
+    let(:password) { "bunni_password" }
+    let(:vhost)    { "bunni_testbed" }
 
     subject do
       described_class.new(hostname: host, username: username, password: password, virtual_host: vhost)
@@ -405,9 +405,9 @@ describe Bunny::Session do
 
     let(:host)     { "127.0.0.1" }
     # see ./bin/ci/before_build
-    let(:username) { "bunny_gem" }
-    let(:password) { "bunny_password" }
-    let(:vhost)    { "bunny_testbed" }
+    let(:username) { "bunni_gem" }
+    let(:password) { "bunni_password" }
+    let(:vhost)    { "bunni_testbed" }
 
     subject do
       described_class.new(hostname: host, username: username, password: password, vhost: vhost)
@@ -452,9 +452,9 @@ describe Bunny::Session do
 
     let(:host)     { "127.0.0.1" }
     # see ./bin/ci/before_build
-    let(:username) { "bunny_gem" }
-    let(:password) { "bunny_password" }
-    let(:vhost)    { "bunny_testbed" }
+    let(:username) { "bunni_gem" }
+    let(:password) { "bunni_password" }
+    let(:vhost)    { "bunni_testbed" }
     let(:interval) { 1 }
 
     subject do
@@ -484,7 +484,7 @@ describe Bunny::Session do
   context "initialized with hostname: 127.0.0.1 and INVALID credentials" do
     let(:host)     { "127.0.0.1" }
     # see ./bin/ci/before_build
-    let(:username) { "bunny_gem#{Time.now.to_i}" }
+    let(:username) { "bunni_gem#{Time.now.to_i}" }
     let(:password) { "sdjkfhsdf8ysd8fy8" }
     let(:vhost)    { "___sd89aysd98789" }
 
@@ -495,7 +495,7 @@ describe Bunny::Session do
     it "fails to connect" do
       expect do
         subject.start
-      end.to raise_error(Bunny::PossibleAuthenticationFailureError)
+      end.to raise_error(Bunni::PossibleAuthenticationFailureError)
     end
 
     it "uses provided username" do
@@ -512,14 +512,14 @@ describe Bunny::Session do
       expect do
         c = described_class.new(port: 38000)
         c.start
-      end.to raise_error(Bunny::TCPConnectionFailed)
+      end.to raise_error(Bunni::TCPConnectionFailed)
     end
 
     it "is not connected" do
       begin
         c = described_class.new(port: 38000)
         c.start
-      rescue Bunny::TCPConnectionFailed => e
+      rescue Bunni::TCPConnectionFailed => e
         true
       end
 
@@ -530,7 +530,7 @@ describe Bunny::Session do
       begin
         c = described_class.new(port: 38000)
         c.start
-      rescue Bunny::TCPConnectionFailed => e
+      rescue Bunni::TCPConnectionFailed => e
         true
       end
 
